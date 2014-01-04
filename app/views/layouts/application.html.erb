@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% if !yield(:title).empty? %>
+    <title><%= yield(:title) %></title>
+    <meta property="og:title" content="<% yield(:title) %>">
+  <% else %>
+    <title>Kokopelli Insurance | Southern Utah | Life Insurance | Health Insurance</title>
+  <% end %>
+  <% if !yield(:description).empty? %>
+    <meta property="og:description" content="<% yield(:description) %>">
+  <% end %>
+  <meta charset="UTF-8" />
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+  <script type="text/javascript" src="/resource/1358914798000/bootstrap/bootstrap/js/bootstrap.js"></script>
+
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-46144752-1', 'kokopelliinsurance.com');
+    ga('send', 'pageview');
+  </script>
+  <meta name="google-site-verification" content="Ugzf18ylQRcwK0XA2P56Eq3WgRVsHAPfUrF2eQxEMRA" />
+
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<div class="container">
+
+  <div class="row">
+    <div class="span12">
+      <div class="social-bar">
+        <div class="float-left">
+          <p>Call us! &rarr; 855-KOKO-NOW (855-565-6669)</p>
+        </div>
+        <div class="align-right">
+          <%= link_to(image_tag('facebook.png', width: 30), "http://facebook.com/KokopelliInsurance", target: "_new") %>
+          <%= link_to(image_tag('twitter.png', width: 30), "http://twitter.com/kokosurance", target: "_new") %>
+          <%= link_to(image_tag('linkedin.png', width: 30), "http://linkedin.com/company/kokopelli-insurance", target: "_new") %>
+          <%= link_to(image_tag('youtube.png', width: 30), "http://youtube.com/user/kokosurance", target: "_new") %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="row">
+    <div class="span12 centered logo-margin"><%= link_to(image_tag('logo.gif', class: 'centered'), root_path) %></div>
+  </div>
+
+  <div class="container-padding">
+
+    <%= form_tag(learning_center_search_path, class: 'pull-right', style: 'margin:0;padding:0;', method: 'get') do %>
+      <div class="input-append">
+        <input type="text" name="keyword" placeholder="search keywords..." style="width:130px;margin-top:10px;"/>
+        <button class="btn" type="submit" style="margin-top:10px;">Go</button>
+      </div>
+    <% end %>
+
+    <ul class="nav nav-tabs">
+      <li><%= link_to("Home", root_path) %></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">About Us <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to('Our Staff', static_staff_path) %></li>
+          <li><%= link_to('Our Mission', static_mission_path) %></li>
+          <li><%= link_to('Our Values', static_values_path) %></li>
+        </ul>
+      </li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Insurance Products <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to('Life Insurance') %></li>
+          <li><%= link_to('Health Insurance') %></li>
+          <li><%= link_to('Annuities') %></li>
+          <li><%= link_to('Retirement') %></li>
+          <li><%= link_to('Medicare') %></li>
+          <li><%= link_to('Disability Insurance') %></li>
+          <li><%= link_to('Long Term Care') %></li>
+        </ul>
+      </li>
+      <li class="dropdown <%= 'class="active"' if flash[:page] == "about"%>"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Learning Center <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to('All Articles', learning_center_index_path) %></li>
+          <li><a href="/learning_center/search?category=life_insurance">Life Insurance</a></li>
+          <li><a href="/learning_center/search?category=health_insurance">Health Insurance</a></li>
+          <li><a href="/learning_center/search?category=financial_planning">Financial Planning</a></li>
+        </ul>
+      </li>
+      <li><a href="/learning_center/search?category=blog">Blog</a></li>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Contact Us <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><%= link_to('General Contact', static_contact_path) %></li>
+          <li><%= link_to('Get a Quote', static_quote_path) %></li>
+          <li><%= link_to('Newsletter Sign-up', static_newsletter_path) %></li>
+        </ul>
+      </li> 
+      <% if session[:login] %>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin Tools <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to('Articles', articles_path) %></li>
+            <li><%= link_to('New Article', new_article_path) %></li>
+            <li><%= link_to('Users', users_path) %></li>
+            <li><%= link_to('New User', new_user_path) %></li>
+            <li><%= link_to('Logout', users_destroy_session_path) %></li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+
+    <%= yield %>
+
+    <hr />
+
+    <div class="row-fluid footer">
+
+      <div class="span2">
+        <div>
+          <b>Life/Health</b><br/>
+          <a href="/learning_center/search?keyword=life_insurance">Life Insurance</a></br>
+          <a href="/learning_center/search?keyword=health_insurance">Health Insurance</a></br>
+          <a href="/learning_center/search?keyword=annuities">Annuities</a></br>
+          <a href="/learning_center/search?keyword=retirement">Retirement</a></br>
+          <a href="/learning_center/search?keyword=medicare">Medicare Supplement</a></br>
+          <a href="/learning_center/search?keyword=disability_insurance">Disability Insurance</a></br>
+          <a href="/learning_center/search?keyword=long-term_care">Long-term Care</a></br>
+        </div>
+      </div>
+
+      <div class="span2">
+        <div>
+          <b>Coming soon</b>
+        </div>
+      </div>
+
+      <div class="span2">
+        <div>
+          <b>Coming soon</b>
+        </div>
+      </div>
+
+      <div class="span2">
+        <div>
+          <b>Coming soon</b>
+        </div>
+      </div>
+
+      <div class="span2">
+        <div>
+          <b>Service Center</b></br>
+          <%= link_to("Contact Us", static_contact_path) %></br>
+          <%= link_to("Get a Quote", static_quote_path) %></br>
+          <%= link_to("Learning Center", learning_center_index_path) %></br>
+          <%= link_to("Newsletter Sign-up", static_newsletter_path) %></br>
+        </div>
+      </div>
+
+      <div class="span2">
+        <div>
+          <b>Contact Info</b><br/>
+          Kokpelli Insurance</br>
+          4 South 2600 West #2</br>
+          Hurricane, UT 84737</br>
+          435-817-4214</br>
+          Toll: 855-KOKO-NOW</br>
+        </div>
+      </div>
+
+    </div>
+
+    <hr />
+
+    <footer>
+      <p>Copyright &copy;<%= Time.now.year %> Kokopelli Insurance. All Rights Reserved.</p>
+      <p><%= link_to("Privacy Policy", static_privacy_policy_path) %> | <%= link_to("Terms of Use", static_terms_of_use_path) %></p>
+      <p><p>Call us anytime at 855-KOKO-NOW (855-565-6669)</p>
+    </footer>
+
+  </div>
+
+</div>
+
+</body>
+</html>

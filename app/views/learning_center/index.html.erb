@@ -1,0 +1,42 @@
+<div class="main">
+  <div class="article">
+
+    <%= "<p class=\"alert alert-success\">#{flash[:notice]}</p>".html_safe if flash[:notice] %>
+    <%= "<p class=\"alert alert-error\">#{flash[:error]}</p>".html_safe if flash[:error] %>
+
+    <div class="learning">
+      <h1>Learning Center</h1>
+      <p>You can check out the articles below, click on a category/tag on the left, or search keywords in the upper-right hand</p>
+    </div>
+
+    <div class="row-fluid" style="margin-top:20px;">
+      <div class="span2">
+        <p><b>Categories:</b></p>
+        <p><a href="/learning_center/search?category=life_insurance">Life Insurance</a></p>
+        <p><a href="/learning_center/search?category=health_insurance">Health Insurance</a></p>
+        <p><a href="/learning_center/search?category=financial_planning">Financial Planning</a></p>
+        <hr/>
+        <p><b>Common keywords:</b></p>
+        <p><a href="/learning_center/search?tag=obamacare">Obamacare</a></p>
+        <p><a href="/learning_center/search?tag=utah_health_insurance">Utah Health Insurance</a></p>
+        <p><a href="/learning_center/search?tag=healthcare">Healthcare</a></p>
+        <p><a href="/learning_center/search?tag="></a></p>
+      </div>
+      <div class="span10">
+        <% count = 1 %>
+        <% @articles.each do |article| %>
+          <% if article.visible %>
+            <%= "<hr/>".html_safe if count != 1 %>
+            <h2 style="line-height:100%;"><%= link_to(article.title, learning_center_show_path(article.id, title: article.title.parameterize)) %></h2>
+            <h5 style="line-height:100%;">by <%= User.find(article.user_id).name %> | <%= "#{article.updated_at}"[0...-12] %></h5>
+            <h5 style="line-height:100%;">category: <%= link_to(parse_keywords(article.category), learning_center_search_path(category: article.category)) %></h5>
+            <%= sanitize("#{article.body}"[0..500].html_safe, tags: %w(p)) + " [. . .] &larr; ".html_safe + link_to("Read more</p>".html_safe, learning_center_show_path(article.id, title: article.title.parameterize)) %>
+            <% count = count + 1 %>
+          <% end %>
+        <% end %>
+      </div>
+
+    <div class="centered pagination"><%= paginate @articles %></div>
+
+  </div>
+</div>

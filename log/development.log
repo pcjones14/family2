@@ -1,0 +1,269 @@
+Connecting to database specified by database.yml
+  [1m[36m (0.0ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (106.3ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (100.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations" 
+Migrating to CreateArticles (20121226221530)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "body" text, "tags" varchar(255), "visible" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20121226221530')[0m
+  [1m[35m (97.1ms)[0m  commit transaction
+Migrating to CreateUsers (20130101203949)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255), "password" varchar(255), "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20130101203949')[0m
+  [1m[35m (99.1ms)[0m  commit transaction
+Migrating to AddAuthorCatergoryToArticles (20130521083600)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "articles" ADD "author" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "articles" ADD "category" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20130521083600')
+  [1m[36m (99.2ms)[0m  [1mcommit transaction[0m
+Migrating to AddPromoToArticles (20130521100656)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "articles" ADD "promo_file_name" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "articles" ADD "promo_content_type" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "articles" ADD "promo_file_size" integer[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "articles" ADD "promo_updated_at" datetime
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20130521100656')[0m
+  [1m[35m (98.8ms)[0m  commit transaction
+Migrating to AddImageToArticles (20130521105117)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "articles" ADD "image_file_name" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "articles" ADD "image_content_type" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "articles" ADD "image_file_size" integer
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "articles" ADD "image_updated_at" datetime[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20130521105117')
+  [1m[36m (122.9ms)[0m  [1mcommit transaction[0m
+Migrating to AddFieldsToUser (20131125011854)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "users" ADD "bio" text[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "users" ADD "name" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20131125011854')[0m
+  [1m[35m (249.9ms)[0m  commit transaction
+Migrating to AddAttachmentToUser (20131130200145)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  ALTER TABLE "users" ADD "avatar_file_name" varchar(255)
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "users" ADD "avatar_content_type" varchar(255)[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "users" ADD "avatar_file_size" integer
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "users" ADD "avatar_updated_at" datetime[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20131130200145')
+  [1m[36m (213.4ms)[0m  [1mcommit transaction[0m
+Migrating to AddUserIdToArticles (20131201222052)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "articles" ADD "user_id" integer[0m
+  [1m[35m (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20131201222052')
+  [1m[36m (200.2ms)[0m  [1mcommit transaction[0m
+Migrating to RemoveAuthorFromArticles (20131201230517)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.3ms)[0m  [1mCREATE TEMPORARY TABLE "altered_articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "body" text, "tags" varchar(255), "visible" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "author" varchar(255), "category" varchar(255), "promo_file_name" varchar(255), "promo_content_type" varchar(255), "promo_file_size" integer, "promo_updated_at" datetime, "image_file_name" varchar(255), "image_content_type" varchar(255), "image_file_size" integer, "image_updated_at" datetime, "user_id" integer) [0m
+  [1m[35m (0.1ms)[0m  SELECT * FROM "articles"
+  [1m[36m (0.1ms)[0m  [1mDROP TABLE "articles"[0m
+  [1m[35m (0.1ms)[0m  CREATE TABLE "articles" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "title" varchar(255), "body" text, "tags" varchar(255), "visible" boolean, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "category" varchar(255), "promo_file_name" varchar(255), "promo_content_type" varchar(255), "promo_file_size" integer, "promo_updated_at" datetime, "image_file_name" varchar(255), "image_content_type" varchar(255), "image_file_size" integer, "image_updated_at" datetime, "user_id" integer) 
+  [1m[36m (0.1ms)[0m  [1mSELECT * FROM "altered_articles"[0m
+  [1m[35m (0.1ms)[0m  DROP TABLE "altered_articles"
+  [1m[36m (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ('20131201230517')[0m
+  [1m[35m (216.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+Connecting to database specified by database.yml
+  [1m[36m (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations" [0m
+  [1m[35mSQL (156.0ms)[0m  DELETE FROM "users"
+  [1m[36mSQL (95.9ms)[0m  [1mDELETE FROM "articles"[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (2.5ms)[0m  [1mINSERT INTO "users" ("avatar_content_type", "avatar_file_name", "avatar_file_size", "avatar_updated_at", "bio", "created_at", "email", "name", "password", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["avatar_content_type", nil], ["avatar_file_name", nil], ["avatar_file_size", nil], ["avatar_updated_at", nil], ["bio", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis neque. Quisque ultricies arcu id facilisis ornare. Pellentesque lacinia risus nulla, non mattis felis ultricies quis. Vestibulum vestibulum tincidunt neque eu cursus. Morbi vestibulum eget mauris vitae venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis egestas sollicitudin eros ac congue. Vestibulum vel ante facilisis, consectetur dolor sit amet, scelerisque velit. Pellentesque nec neque sit amet justo posuere feugiat."], ["created_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["email", "ryan@kokosurance.com"], ["name", "Ryan Carter"], ["password", "5f4dcc3b5aa765d61d8327deb882cf99"], ["updated_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00]]
+[paperclip] Saving attachments.
+  [1m[35m (99.7ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("avatar_content_type", "avatar_file_name", "avatar_file_size", "avatar_updated_at", "bio", "created_at", "email", "name", "password", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["avatar_content_type", nil], ["avatar_file_name", nil], ["avatar_file_size", nil], ["avatar_updated_at", nil], ["bio", "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec volutpat turpis neque. Quisque ultricies arcu id facilisis ornare. Pellentesque lacinia risus nulla, non mattis felis ultricies quis. Vestibulum vestibulum tincidunt neque eu cursus. Morbi vestibulum eget mauris vitae venenatis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis egestas sollicitudin eros ac congue. Vestibulum vel ante facilisis, consectetur dolor sit amet, scelerisque velit. Pellentesque nec neque sit amet justo posuere feugiat."], ["created_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["email", "janelle@kokosurance.com"], ["name", "Janelle Carter"], ["password", "5f4dcc3b5aa765d61d8327deb882cf99"], ["updated_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00]]
+[paperclip] Saving attachments.
+  [1m[36m (99.2ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("body", "category", "created_at", "image_content_type", "image_file_name", "image_file_size", "image_updated_at", "promo_content_type", "promo_file_name", "promo_file_size", "promo_updated_at", "tags", "title", "updated_at", "user_id", "visible") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["body", "<p>Life insurance (or commonly life assurance, especially in the Commonwealth) is a contract between an insured (insurance policy holder) and an insurer or assurer, where the insurer promises to pay a designated beneficiary a sum of money (the benefits) upon the death of the insured person. Depending on the contract, other events such as terminal illness or critical illness may also trigger payment. The policy holder typically pays a premium, either regularly or as a lump sum. Other expenses (such as funeral expenses) are also sometimes included in the benefits.</p><p>Life policies are legal contracts and the terms of the contract describe the limitations of the insured events. Specific exclusions are often written into the contract to limit the liability of the insurer; common examples are claims relating to suicide, fraud, war, riot and civil commotion.</p><p>There is a difference between the insured and the policy owner, although the owner and the insured are often the same person. For example, if Joe buys a policy on his own life, he is both the owner and the insured. But if Jane, his wife, buys a policy on Joe's life, she is the owner and he is the insured. The policy owner is the guarantor and he will be the person to pay for the policy. The insured is a participant in the contract, but not necessarily a party to it. Also, most companies allow the payer and owner to be different, e. g. a grandparent paying premiums for a policy on a child, owned by a grandchild.</p>"], ["category", "life_insurance"], ["created_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["image_content_type", nil], ["image_file_name", nil], ["image_file_size", nil], ["image_updated_at", nil], ["promo_content_type", nil], ["promo_file_name", nil], ["promo_file_size", nil], ["promo_updated_at", nil], ["tags", "life insurance,retirement,money,premiums,costs"], ["title", "Life Insurance Premiums"], ["updated_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["user_id", 1], ["visible", true]]
+[paperclip] Saving attachments.
+  [1m[35m (98.5ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "articles" ("body", "category", "created_at", "image_content_type", "image_file_name", "image_file_size", "image_updated_at", "promo_content_type", "promo_file_name", "promo_file_size", "promo_updated_at", "tags", "title", "updated_at", "user_id", "visible") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)  [["body", "<p>A moment of truth has arrived for President Barack Obama's signature health care reforms with Saturday's self-imposed deadline to get the problem-plagued HealthCare.gov website to work properly for most users.</p><p>With tech experts making upgrades and fixes during the overnight hours this weekend, an official with the Centers for Medicare and Medicaid Services said Saturday the administration is on track to meet [its] stated goal for the site to work for the vast majority of users— a promise Obama and other officials have been making for weeks.</p><p>The website was down late Friday night through early Saturday morning for maintenance, and will go dark overnight Saturday for more scheduled maintenance checks. Officials have indicated that they need until the very end of the month to complete the upgrades that they expect to be functioning by Sunday, the first day of December.</p>"], ["category", "health_insurance"], ["created_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["image_content_type", nil], ["image_file_name", nil], ["image_file_size", nil], ["image_updated_at", nil], ["promo_content_type", nil], ["promo_file_name", nil], ["promo_file_size", nil], ["promo_updated_at", nil], ["tags", "health insurance,affordable care act,obamacare,registration,healthcare,healthcare.gov"], ["title", "Affordable Care Act Extensions"], ["updated_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["user_id", 1], ["visible", true]]
+[paperclip] Saving attachments.
+  [1m[36m (98.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "articles" ("body", "category", "created_at", "image_content_type", "image_file_name", "image_file_size", "image_updated_at", "promo_content_type", "promo_file_name", "promo_file_size", "promo_updated_at", "tags", "title", "updated_at", "user_id", "visible") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["body", "<p>Many people choose to retire when they are eligible for private or public pension benefits, although some are forced to retire when physical conditions no longer allow the person to work any more (by illness or accident) or as a result of legislation concerning their position.[3] In most countries, the idea of retirement is of recent origin, being introduced during the late 19th and early 20th centuries. Previously, low life expectancy and the absence of pension arrangements meant that most workers continued to work until death. Germany was the first country to introduce retirement, in 1889.[4]</p><p>Nowadays most developed countries have systems to provide pensions on retirement in old age, which may be sponsored by employers and/or the state. In many poorer countries, support for the old is still mainly provided through the family. Today, retirement with a pension is considered a right of the worker in many societies, and hard ideological, social, cultural and political battles have been fought over whether this is a right. In many western countries this right is mentioned in national constitutions.</p><p>Recent advances in data collection have vastly improved our ability to understand important relationships between retirement and factors such as health, wealth, employment characteristics and family dynamics, among others. The most prominent study for examining retirement behavior in the United States is the ongoing Health and Retirement Study (HRS), first fielded in 1992. The HRS is a nationally representative longitudinal survey of adults in the U.S. ages 51+, conducted every two years, and contains a wealth of information on such topics as labor force participation (e.g., current employment, job history, retirement plans, industry/occupation, pensions, disability), health (e.g., health status and history, health and life insurance, cognition), financial variables (e.g., assets and income, housing, net worth, wills, consumption and savings), family characteristics (e.g., family structure, transfers, parent/child/grandchild/sibling information) and a host of other topics (e.g., expectations, expenses, internet use, risk taking, psychosocial, time use).</p>"], ["category", "financial_planning"], ["created_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["image_content_type", nil], ["image_file_name", nil], ["image_file_size", nil], ["image_updated_at", nil], ["promo_content_type", nil], ["promo_file_name", nil], ["promo_file_size", nil], ["promo_updated_at", nil], ["tags", "financial planning,finances,money,insurance,retirement,nest egg"], ["title", "Building Your Nest Egg"], ["updated_at", Mon, 30 Dec 2013 17:44:40 UTC +00:00], ["user_id", 2], ["visible", true]]
+[paperclip] Saving attachments.
+  [1m[35m (99.3ms)[0m  commit transaction
+
+
+Started GET "/" for 127.0.0.1 at 2013-12-30 10:44:49 -0700
+Connecting to database specified by database.yml
+Processing by StaticController#index as HTML
+  [1m[36mArticle Load (0.1ms)[0m  [1mSELECT "articles".* FROM "articles" WHERE (promo_file_name <> 'nil') ORDER BY updated_at DESC LIMIT 4[0m
+  [1m[35mArticle Load (0.2ms)[0m  SELECT "articles".* FROM "articles" WHERE (category != 'blog') ORDER BY updated_at DESC LIMIT 3
+  Rendered static/index.html.erb within layouts/application (21.6ms)
+Compiled articles.css  (3ms)  (pid 18511)
+Compiled errors.css  (0ms)  (pid 18511)
+Compiled learning_center.css  (0ms)  (pid 18511)
+Compiled static_pages.css  (1522ms)  (pid 18511)
+Compiled users.css  (0ms)  (pid 18511)
+Compiled application.css  (1540ms)  (pid 18511)
+Compiled jquery.js  (3ms)  (pid 18511)
+Compiled bootstrap-transition.js  (0ms)  (pid 18511)
+Compiled bootstrap-affix.js  (0ms)  (pid 18511)
+Compiled bootstrap-alert.js  (0ms)  (pid 18511)
+Compiled bootstrap-button.js  (0ms)  (pid 18511)
+Compiled bootstrap-carousel.js  (0ms)  (pid 18511)
+Compiled bootstrap-collapse.js  (0ms)  (pid 18511)
+Compiled bootstrap-dropdown.js  (0ms)  (pid 18511)
+Compiled bootstrap-modal.js  (0ms)  (pid 18511)
+Compiled bootstrap-scrollspy.js  (0ms)  (pid 18511)
+Compiled bootstrap-tab.js  (0ms)  (pid 18511)
+Compiled bootstrap-tooltip.js  (0ms)  (pid 18511)
+Compiled bootstrap-popover.js  (0ms)  (pid 18511)
+Compiled bootstrap-typeahead.js  (0ms)  (pid 18511)
+Compiled bootstrap.js  (36ms)  (pid 18511)
+Compiled jquery_ujs.js  (0ms)  (pid 18511)
+Compiled articles.js  (49ms)  (pid 18511)
+Compiled errors.js  (0ms)  (pid 18511)
+Compiled front.js  (0ms)  (pid 18511)
+Compiled static_pages.js  (0ms)  (pid 18511)
+Compiled users.js  (0ms)  (pid 18511)
+Compiled application.js  (110ms)  (pid 18511)
+Completed 200 OK in 1765ms (Views: 1747.5ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/resource/1358914798000/bootstrap/bootstrap/js/bootstrap.js" for 127.0.0.1 at 2013-12-30 10:44:50 -0700
+
+ActionController::RoutingError (No route matches [GET] "/resource/1358914798000/bootstrap/bootstrap/js/bootstrap.js"):
+  actionpack (3.2.9) lib/action_dispatch/middleware/debug_exceptions.rb:21:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/show_exceptions.rb:56:in `call'
+  railties (3.2.9) lib/rails/rack/logger.rb:32:in `call_app'
+  railties (3.2.9) lib/rails/rack/logger.rb:16:in `block in call'
+  activesupport (3.2.9) lib/active_support/tagged_logging.rb:22:in `tagged'
+  railties (3.2.9) lib/rails/rack/logger.rb:16:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/request_id.rb:22:in `call'
+  rack (1.4.1) lib/rack/methodoverride.rb:21:in `call'
+  rack (1.4.1) lib/rack/runtime.rb:17:in `call'
+  activesupport (3.2.9) lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+  rack (1.4.1) lib/rack/lock.rb:15:in `call'
+  actionpack (3.2.9) lib/action_dispatch/middleware/static.rb:62:in `call'
+  railties (3.2.9) lib/rails/engine.rb:479:in `call'
+  railties (3.2.9) lib/rails/application.rb:223:in `call'
+  rack (1.4.1) lib/rack/content_length.rb:14:in `call'
+  railties (3.2.9) lib/rails/rack/log_tailer.rb:17:in `call'
+  thin (1.4.1) lib/thin/connection.rb:80:in `block in pre_process'
+  thin (1.4.1) lib/thin/connection.rb:78:in `catch'
+  thin (1.4.1) lib/thin/connection.rb:78:in `pre_process'
+  thin (1.4.1) lib/thin/connection.rb:53:in `process'
+  thin (1.4.1) lib/thin/connection.rb:38:in `receive_data'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run_machine'
+  eventmachine (1.0.0) lib/eventmachine.rb:187:in `run'
+  thin (1.4.1) lib/thin/backends/base.rb:63:in `start'
+  thin (1.4.1) lib/thin/server.rb:159:in `start'
+  rack (1.4.1) lib/rack/handler/thin.rb:13:in `run'
+  rack (1.4.1) lib/rack/server.rb:265:in `start'
+  railties (3.2.9) lib/rails/commands/server.rb:70:in `start'
+  railties (3.2.9) lib/rails/commands.rb:55:in `block in <top (required)>'
+  railties (3.2.9) lib/rails/commands.rb:50:in `tap'
+  railties (3.2.9) lib/rails/commands.rb:50:in `<top (required)>'
+  script/rails:6:in `require'
+  script/rails:6:in `<main>'
+
+
+  Rendered /home/payton/.rvm/gems/ruby-2.1.0/gems/actionpack-3.2.9/lib/action_dispatch/middleware/templates/rescues/routing_error.erb within rescues/layout (0.8ms)
+
+
+Started GET "/assets/articles.css?body=1" for 127.0.0.1 at 2013-12-30 10:44:50 -0700
+Served asset /articles.css - 200 OK (2ms)
+
+
+Started GET "/assets/errors.css?body=1" for 127.0.0.1 at 2013-12-30 10:44:50 -0700
+Served asset /errors.css - 200 OK (1ms)
+
+
+Started GET "/assets/learning_center.css?body=1" for 127.0.0.1 at 2013-12-30 10:44:50 -0700
+Served asset /learning_center.css - 200 OK (1ms)
+
+
+Started GET "/assets/static_pages.css?body=1" for 127.0.0.1 at 2013-12-30 10:44:50 -0700
+Served asset /static_pages.css - 200 OK (5ms)
+
+
+Started GET "/assets/users.css?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /users.css - 200 OK (1ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /jquery.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-transition.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-transition.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-affix.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-affix.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-alert.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-alert.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-button.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-button.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-carousel.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-carousel.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-collapse.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-collapse.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-dropdown.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-dropdown.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-modal.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-modal.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-scrollspy.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-scrollspy.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-tab.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-tab.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-tooltip.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-tooltip.js - 200 OK (2ms)
+
+
+Started GET "/assets/bootstrap-popover.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-popover.js - 200 OK (1ms)
+
+
+Started GET "/assets/bootstrap-typeahead.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /bootstrap-typeahead.js - 200 OK (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /jquery_ujs.js - 200 OK (1ms)
+
+
+Started GET "/assets/articles.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /articles.js - 200 OK (1ms)
+
+
+Started GET "/assets/errors.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /errors.js - 200 OK (1ms)
+
+
+Started GET "/assets/front.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /front.js - 200 OK (1ms)
+
+
+Started GET "/assets/static_pages.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /static_pages.js - 200 OK (1ms)
+
+
+Started GET "/assets/users.js?body=1" for 127.0.0.1 at 2013-12-30 10:44:51 -0700
+Served asset /users.js - 200 OK (1ms)
